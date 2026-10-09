@@ -1,33 +1,567 @@
-const families=[
-{icon:'Ω',title:'مقاومت‌ها',desc:'ثابت، متغیر، NTC، PTC و LDR',active:true},
-{icon:'▤',title:'خازن‌ها',desc:'سرامیکی، الکترولیتی، فیلمی و تانتالیوم'},
-{icon:'▷',title:'دیودها و LED',desc:'یکسوساز، زنر، شاتکی و دیود نورانی'},
-{icon:'⋈',title:'ترانزیستورها',desc:'BJT، MOSFET و انواع کاربردی'},
-{icon:'∿',title:'سلف و ترانسفورماتور',desc:'سلف‌ها، چوک‌ها و ترانس‌ها'},
-{icon:'▦',title:'مدارهای مجتمع',desc:'تقویت‌کننده، تایمر، منطقی و میکروکنترلر'},
-{icon:'◉',title:'حسگرها',desc:'دما، نور، حرکت و کمیت‌های دیگر'},
-{icon:'⚙',title:'قطعات الکترومکانیکی',desc:'رله، کلید، کانکتور و فیوز'}];
-const resistorTypes=[{id:'fixed',title:'مقاومت ثابت',desc:'مقدار نامی آن در شرایط کاری مشخص ثابت است.'},{id:'variable',title:'مقاومت متغیر و پتانسیومتر',desc:'برای تنظیم ولتاژ، سطح سیگنال یا مقدار مقاومت.'},{id:'thermistor',title:'ترمیستور NTC و PTC',desc:'مقاومت آن با تغییر دما تغییر می‌کند.'},{id:'ldr',title:'فتورزیستور (LDR)',desc:'مقاومت آن با شدت نور تغییر می‌کند.'},{id:'wirewound',title:'مقاومت سیمی و توان بالا',desc:'برای کاربردهای توان بالاتر یا شرایط ویژه.'},{id:'precision',title:'مقاومت دقیق و شبکه‌ای',desc:'برای مدارهای اندازه‌گیری و تطبیق دقیق.'}];
-const grid=document.getElementById('familyGrid'),lesson=document.getElementById('lesson'),content=document.getElementById('lessonContent');
-grid.innerHTML=families.map(f=>`<button class="family ${f.active?'':'disabled'}" ${f.active?'data-family="resistors"':'disabled'}><span class="icon">${f.icon}</span><h3>${f.title}</h3><p>${f.desc}</p><span class="status">${f.active?'آموزش در دسترس':'به‌زودی'}</span></button>`).join('');
-// هر بار باز شدن سایت، ابتدا صفحه خوش‌آمدگویی نمایش داده می‌شود؛ ورود فقط با کلیک کاربر انجام می‌شود.
-document.getElementById('enter').onclick=()=>{document.getElementById('welcome').classList.add('dismissed')};
-document.getElementById('menu').onclick=()=>document.getElementById('nav').classList.toggle('open');document.getElementById('home').onclick=e=>{e.preventDefault();lesson.classList.add('hidden');document.getElementById('families').scrollIntoView({behavior:'smooth'})};document.getElementById('back').onclick=()=>{lesson.classList.add('hidden');document.getElementById('families').scrollIntoView({behavior:'smooth'})};grid.addEventListener('click',e=>{if(e.target.closest('[data-family]'))openResistors()});
-function openResistors(){lesson.classList.remove('hidden');content.innerHTML=`<span class="eyebrow">خانواده قطعات / مقاومت‌ها</span><h2 class="lesson-title">آموزش مقاومت‌ها</h2><p class="intro">مقاومت یکی از قطعات پایه در مدارهای الکترونیکی است. ابتدا انواع آن را بشناس و سپس وارد درس تخصصی هر گروه شو.</p><div class="types">${resistorTypes.map(t=>`<button class="type" data-type="${t.id}"><b>${t.title}</b><small>${t.desc}</small></button>`).join('')}</div><div class="detail" id="typeDetail"><p class="intro">برای باز کردن درس، روی یکی از انواع مقاومت کلیک کن.</p></div>`;content.querySelectorAll('[data-type]').forEach(b=>b.onclick=()=>showType(b.dataset.type));lesson.scrollIntoView({behavior:'smooth',block:'start'})}
-function showType(type){const d=document.getElementById('typeDetail');if(type!=='fixed'){const t=resistorTypes.find(x=>x.id===type);d.innerHTML=`<h3>${t.title}</h3><p class="intro">${t.desc}</p><div class="safety">این بخش در نسخه‌های بعدی با تصاویر واقعی، ساختمان، کاربردها و روش آزمون اختصاصی تکمیل خواهد شد.</div>`;return}d.innerHTML=`<span class="eyebrow">درس ۱ · مقاومت ثابت</span><h3 class="lesson-title">مقاومت فیلمی: شناسایی، کاربرد و تست</h3><p class="intro">مقاومت قطعه‌ای دوپایه است که برای محدودکردن جریان، تقسیم ولتاژ و تعیین شرایط کاری بخش‌های مختلف مدار استفاده می‌شود. مقدار آن با اهم (Ω) و توان نامی آن معمولاً با وات (W) بیان می‌شود.</p><div class="detail-grid"><article class="box"><h4>۱. شناسایی ظاهری</h4><p>مقاومت محوری معمولاً بدنه‌ای استوانه‌ای با دو پایه دارد. نوارهای رنگی می‌توانند مقدار، تلرانس و در برخی کدها ضریب دمایی را مشخص کنند. همه مقاومت‌ها کد رنگی ندارند.</p><ul><li>مقدار نامی: Ω، kΩ یا MΩ</li><li>تلرانس: انحراف مجاز از مقدار نامی</li><li>توان نامی: باید متناسب با مدار انتخاب شود</li></ul></article><article class="box"><h4>۲. ساختمان داخلی</h4><p>در مقاومت فیلمی رایج، لایه‌ای مقاومتی روی هسته‌ای عایق، معمولاً سرامیکی، تشکیل می‌شود. شکل برش لایه مقدار مقاومت را تنظیم می‌کند و پوشش بیرونی از عنصر مقاومتی محافظت می‌کند. ساختار دقیق به فناوری ساخت وابسته است.</p><p>ساختمان مقاومت سیمی، کربنی و فیلمی یکسان نیست.</p></article><article class="box"><h4>۳. کاربردها</h4><ul><li>محدودکردن جریان LED</li><li>تقسیم ولتاژ</li><li>بایاس ترانزیستور</li><li>مقاومت‌های Pull-up و Pull-down</li></ul><p>انتخاب قطعه باید بر اساس ولتاژ، جریان، توان، تلرانس و دمای کاری انجام شود.</p></article><article class="box"><h4>۴. تست سرد با مولتی‌متر</h4><ol><li>تغذیه مدار را قطع و بی‌برق بودن آن را بررسی کن.</li><li>خازن‌ها را به روش ایمن تخلیه کن.</li><li>مولتی‌متر را روی Ω بگذار.</li><li>برای اندازه‌گیری دقیق، در صورت نیاز حداقل یک پایه را از مدار جدا کن.</li><li>عدد را با مقدار نامی و تلرانس مقایسه کن.</li></ol></article><article class="box"><h4>۵. بررسی در مدار روشن (تست گرم)</h4><p>برای بررسی عملکرد، افت ولتاژ دو سر مقاومت را در مدار فعال اندازه بگیر و در صورت معلوم بودن مقدار مقاومت، جریان و توان را محاسبه کن. از پراب و مولتی‌متر مناسب ولتاژ و رده ایمنی مدار استفاده کن و آزمون را زیر نظر مربی انجام بده.</p><p>«تست گرم» برای مقاومت معمولی یک آزمون استاندارد مستقل نیست؛ معمولاً بررسی عملکرد در شرایط کاری منظور است.</p></article><article class="box"><h4>۶. تفسیر نتیجه</h4><ul><li>مقدار در محدوده تلرانس: معمولاً طبیعی است.</li><li>OL در قطعه جداشده: احتمال قطع‌شدن عنصر مقاومتی.</li><li>مقدار کمتر از انتظار در مدار: مسیرهای موازی ممکن است اثر بگذارند.</li><li>ترک یا سوختگی: نشانه آسیب احتمالی است، نه اثبات قطعی خرابی.</li></ul></article></div><section class="color-tool" aria-labelledby="colorToolTitle"><span class="eyebrow">ابزار تعاملی</span><h3 id="colorToolTitle">ماشین‌حساب کد رنگی مقاومت ۴ نواره</h3><p class="intro">دو نوار اول رقم‌های معنادار، نوار سوم ضریب و نوار چهارم تلرانس را مشخص می‌کند. رنگ نوارها را انتخاب کن تا مقدار محاسبه شود.</p><div class="resistor-visual" aria-label="نمای شماتیک مقاومت با چهار نوار رنگی"><span class="lead"></span><span class="body"><i id="bandPreview1"></i><i id="bandPreview2"></i><i id="bandPreview3"></i><i id="bandPreview4"></i></span><span class="lead"></span></div><div class="color-selects"><label>نوار اول (رقم اول)<select id="band1"></select></label><label>نوار دوم (رقم دوم)<select id="band2"></select></label><label>نوار سوم (ضریب)<select id="band3"></select></label><label>نوار چهارم (تلرانس)<select id="band4"></select></label></div><div class="result-panel" aria-live="polite"><small>مقدار نامی محاسبه‌شده</small><strong id="colorResult">1 kΩ</strong><span id="toleranceResult">تلرانس: ±5%</span></div><p class="note">این ابزار برای مقاومت‌های ۴ نواره متداول است. نوارهای طلایی و نقره‌ای در دو جایگاه اول رقم معنادار نیستند. همیشه مقدار را با مشخصات قطعه و اندازه‌گیری واقعی تطبیق بده.</p></section><div class="safety"><b>ایمنی:</b> هرگز مقاومت را در مدار برق‌دار با حالت Ω اندازه‌گیری نکن. آزمون مدارهای متصل به برق شهر یا ولتاژ خطرناک برای هنرجویان مبتدی مناسب نیست و باید فقط با تجهیزات و نظارت تخصصی انجام شود.</div><div class="quiz"><h4>آزمون کوتاه</h4><p>برای اندازه‌گیری مقاومت با مولتی‌متر در حالت اهم، مدار باید چگونه باشد؟</p><button data-answer="wrong">مدار روشن باشد</button><button data-answer="right">تغذیه قطع و مدار بی‌برق باشد</button><button data-answer="wrong">پراب‌ها در ورودی جریان باشند</button><div class="quiz-feedback" id="feedback" aria-live="polite"></div></div>`;d.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{const f=document.getElementById('feedback');f.textContent=b.dataset.answer==='right'?'درست است. اندازه‌گیری مقاومت باید در مدار بی‌برق انجام شود.':'این گزینه ایمن یا صحیح نیست. دوباره تلاش کن.';f.style.color=b.dataset.answer==='right'?'#0e8f83':'#b35a2b'});initColorCalculator(d)}
-function initColorCalculator(root){
- const colors=[
-  {name:'مشکی',hex:'#222222',digit:0,mult:1}, {name:'قهوه‌ای',hex:'#854b2d',digit:1,mult:10,tol:1},
-  {name:'قرمز',hex:'#d93025',digit:2,mult:100,tol:2}, {name:'نارنجی',hex:'#f28c28',digit:3,mult:1000},
-  {name:'زرد',hex:'#f5d547',digit:4,mult:10000}, {name:'سبز',hex:'#268a50',digit:5,mult:100000,tol:.5},
-  {name:'آبی',hex:'#2878c8',digit:6,mult:1000000,tol:.25}, {name:'بنفش',hex:'#8154a6',digit:7,mult:10000000,tol:.1},
-  {name:'خاکستری',hex:'#9299a1',digit:8,mult:100000000,tol:.05}, {name:'سفید',hex:'#f7f7f7',digit:9,mult:1000000000},
-  {name:'طلایی',hex:'#c8a64b',mult:.1,tol:5}, {name:'نقره‌ای',hex:'#aeb7c0',mult:.01,tol:10}
- ];
- const selects=[1,2,3,4].map(n=>root.querySelector('#band'+n)); if(selects.some(x=>!x))return;
- function optionsFor(index){return index<2?colors.filter(c=>c.digit!==undefined&&c.digit<10):index===2?colors.filter(c=>c.mult!==undefined):colors.filter(c=>c.tol!==undefined)}
- selects.forEach((sel,i)=>{sel.innerHTML=optionsFor(i).map(c=>`<option value="${c.name}">${c.name}</option>`).join('');sel.value=['قهوه‌ای','مشکی','قرمز','طلایی'][i];sel.addEventListener('change',update)});
- function fmt(n){if(n>=1e6)return (n/1e6).toLocaleString('fa-IR',{maximumFractionDigits:3})+' مگااهم';if(n>=1e3)return (n/1e3).toLocaleString('fa-IR',{maximumFractionDigits:3})+' کیلو‌اهم';if(n<1)return n.toLocaleString('fa-IR')+' اهم';return n.toLocaleString('fa-IR')+' اهم'}
- function update(){const picked=selects.map(s=>colors.find(c=>c.name===s.value));picked.forEach((c,i)=>{const band=root.querySelector('#bandPreview'+(i+1));band.style.background=c.hex;band.title=c.name;band.style.border=c.hex==='#f7f7f7'?'1px solid #ddd':'0'});const value=(picked[0].digit*10+picked[1].digit)*picked[2].mult;root.querySelector('#colorResult').textContent=fmt(value);root.querySelector('#toleranceResult').textContent='تلرانس: ±'+picked[3].tol+'%';}
- update();
+"use strict";
+
+const $ = (id) => document.getElementById(id);
+
+function playWelcomeSound() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+
+    const ctx = new AudioCtx();
+    const notes = [659.25, 783.99, 987.77, 1318.51];
+
+    notes.forEach((frequency, i) => {
+      const start = ctx.currentTime + i * 0.19;
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(frequency, start);
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(0.10, start + 0.025);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.32);
+
+      oscillator.connect(gain);
+      gain.connect(ctx.destination);
+      oscillator.start(start);
+      oscillator.stop(start + 0.33);
+    });
+
+    window.setTimeout(() => ctx.close().catch(() => {}), 1500);
+  } catch (error) {
+    console.warn("پخش صدای خوشامدگویی امکان‌پذیر نشد.", error);
+  }
 }
+
+const families = [
+  {
+    id: "resistors",
+    icon: "Ω",
+    title: "مقاومت‌ها",
+    description: "محدود کردن جریان و تقسیم ولتاژ",
+    status: "شروع یادگیری",
+    enabled: true
+  },
+  {
+    id: "capacitors",
+    icon: "║",
+    title: "خازن‌ها",
+    description: "ذخیره بار و انرژی الکتریکی",
+    status: "آموزش مقدماتی",
+    enabled: true
+  },
+  {
+    id: "diodes",
+    icon: "▷",
+    title: "دیودها",
+    description: "یک‌سوسازی و کنترل مسیر جریان",
+    status: "آموزش مقدماتی",
+    enabled: true
+  },
+  {
+    id: "transistors",
+    icon: "T",
+    title: "ترانزیستورها",
+    description: "تقویت و سوئیچینگ الکترونیکی",
+    status: "آموزش مقدماتی",
+    enabled: true
+  },
+  {
+    id: "ics",
+    icon: "▦",
+    title: "مدارهای مجتمع",
+    description: "آشنایی با آی‌سی‌ها و کاربرد آن‌ها",
+    status: "آموزش مقدماتی",
+    enabled: true
+  },
+  {
+    id: "inductors",
+    icon: "∿",
+    title: "سلف‌ها",
+    description: "ذخیره انرژی در میدان مغناطیسی",
+    status: "آموزش مقدماتی",
+    enabled: true
+  },
+  {
+    id: "leds",
+    icon: "✦",
+    title: "LED و قطعات نوری",
+    description: "تبدیل انرژی الکتریکی به نور",
+    status: "آموزش مقدماتی",
+    enabled: true
+  },
+  {
+    id: "measurement",
+    icon: "V",
+    title: "ابزار اندازه‌گیری",
+    description: "آشنایی با مولتی‌متر و آزمون قطعات",
+    status: "آموزش مقدماتی",
+    enabled: true
+  }
+];
+
+const resistorTypes = [
+  {
+    title: "مقاومت ثابت",
+    subtitle: "مقدار مقاومت در شرایط عادی ثابت است",
+    description:
+      "مقاومت ثابت برای محدود کردن جریان، تقسیم ولتاژ و تنظیم شرایط کاری مدار استفاده می‌شود.",
+    applications: [
+      "محدود کردن جریان LED",
+      "تقسیم ولتاژ",
+      "تعیین بایاس ترانزیستور"
+    ],
+    test:
+      "برای اندازه‌گیری مقاومت با مولتی‌متر، بهتر است برق مدار قطع باشد و در صورت امکان یک پایه قطعه از مدار جدا شود."
+  },
+  {
+    title: "مقاومت متغیر",
+    subtitle: "مقدار مقاومت قابل تنظیم است",
+    description:
+      "پتانسیومتر و تریمر از انواع مقاومت متغیر هستند. با حرکت محور یا پیچ تنظیم، مقدار مقاومت یا ولتاژ خروجی تغییر می‌کند.",
+    applications: [
+      "تنظیم شدت صدا",
+      "تنظیم روشنایی",
+      "تنظیم نقطه کاری مدار"
+    ],
+    test:
+      "در بسیاری از پتانسیومترها، مقاومت بین دو پایه انتهایی ثابت است؛ مقاومت بین پایه وسط و یکی از پایه‌های انتهایی با چرخاندن محور تغییر می‌کند."
+  },
+  {
+    title: "مقاومت SMD",
+    subtitle: "قطعه کوچک مناسب نصب سطحی",
+    description:
+      "مقاومت‌های SMD مستقیماً روی سطح برد نصب می‌شوند. کد روی بدنه بعضی از آن‌ها مقدار مقاومت را نشان می‌دهد.",
+    applications: [
+      "بردهای الکترونیکی فشرده",
+      "تجهیزات دیجیتال",
+      "تلفن همراه و تجهیزات صنعتی"
+    ],
+    test:
+      "کدگذاری مقاومت SMD همیشه یکسان نیست. برای تفسیر کدهای سه‌رقمی یا چهاررقمی باید نوع کد را تشخیص داد."
+  }
+];
+
+const colorBands = [
+  { name: "مشکی", hex: "#202124", value: 0, multiplier: 1, tolerance: null },
+  { name: "قهوه‌ای", hex: "#795548", value: 1, multiplier: 10, tolerance: 1 },
+  { name: "قرمز", hex: "#e53935", value: 2, multiplier: 100, tolerance: 2 },
+  { name: "نارنجی", hex: "#fb8c00", value: 3, multiplier: 1000, tolerance: null },
+  { name: "زرد", hex: "#fdd835", value: 4, multiplier: 10000, tolerance: null },
+  { name: "سبز", hex: "#43a047", value: 5, multiplier: 100000, tolerance: 0.5 },
+  { name: "آبی", hex: "#1e88e5", value: 6, multiplier: 1000000, tolerance: 0.25 },
+  { name: "بنفش", hex: "#8e24aa", value: 7, multiplier: 10000000, tolerance: 0.1 },
+  { name: "خاکستری", hex: "#757575", value: 8, multiplier: 100000000, tolerance: 0.05 },
+  { name: "سفید", hex: "#f5f5f5", value: 9, multiplier: 1000000000, tolerance: null },
+  { name: "طلایی", hex: "#c9a227", value: null, multiplier: 0.1, tolerance: 5 },
+  { name: "نقره‌ای", hex: "#b9c0c7", value: null, multiplier: 0.01, tolerance: 10 }
+];
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function renderFamilies() {
+  const grid = $("familyGrid");
+  if (!grid) return;
+
+  grid.innerHTML = families.map((family) => `
+    <button type="button"
+      class="family${family.enabled ? "" : " disabled"}"
+      data-family="${family.id}"
+      ${family.enabled ? "" : "disabled"}>
+      <span class="icon">${escapeHTML(family.icon)}</span>
+      <h3>${escapeHTML(family.title)}</h3>
+      <p>${escapeHTML(family.description)}</p>
+      <span class="status">${escapeHTML(family.status)}</span>
+    </button>
+  `).join("");
+
+  grid.addEventListener("click", (event) => {
+    const card = event.target.closest("[data-family]");
+    if (!card) return;
+    openFamily(card.dataset.family);
+  });
+}
+
+function openFamily(id) {
+  const family = families.find((item) => item.id === id);
+  if (!family) return;
+
+  const lesson = $("lesson");
+  const content = $("lessonContent");
+  if (!lesson || !content) return;
+
+  if (id === "resistors") {
+    renderResistorLesson();
+  } else {
+    renderGeneralLesson(family);
+  }
+
+  lesson.classList.remove("hidden");
+  lesson.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderResistorLesson() {
+  const content = $("lessonContent");
+
+  content.innerHTML = `
+    <span class="eyebrow">آموزش گام‌به‌گام</span>
+    <h2 class="lesson-title">آشنایی با مقاومت‌ها</h2>
+    <p class="intro">
+      مقاومت یکی از قطعات پایه در الکترونیک است. این قطعه در برابر عبور
+      جریان الکتریکی مقاومت ایجاد می‌کند و برای کنترل جریان و تقسیم ولتاژ
+      به کار می‌رود.
+    </p>
+
+    <div class="types">
+      ${resistorTypes.map((type, index) => `
+        <button type="button" class="type" data-resistor-type="${index}">
+          <b>${escapeHTML(type.title)}</b>
+          <small>${escapeHTML(type.subtitle)}</small>
+        </button>
+      `).join("")}
+    </div>
+
+    <div id="resistorDetail" class="detail">
+      <div class="detail-grid">
+        <div class="box">
+          <h4>واحد اندازه‌گیری</h4>
+          <p>واحد مقاومت اهم (Ω) است. یک کیلو‌اهم برابر ۱۰۰۰ اهم و یک مگااهم برابر یک میلیون اهم است.</p>
+        </div>
+        <div class="box">
+          <h4>قانون اهم</h4>
+          <p>در شرایط مناسب، رابطه ولتاژ، جریان و مقاومت با فرمول V = I × R بیان می‌شود.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-tool" id="resistorCalculator">
+      <span class="eyebrow">ابزار تعاملی</span>
+      <h3>محاسبه‌گر رنگ مقاومت چهارنواره</h3>
+      <p class="intro">
+        رنگ هر نوار را از فهرست زیر انتخاب کن. ترتیب فیلدها و نوارهای
+        مقاومت از چپ به راست است.
+      </p>
+
+      <div class="resistor-visual" aria-label="نمایش رنگ نوارهای مقاومت">
+        <span class="lead"></span>
+        <div class="body" id="resistorBody">
+          <i></i><i></i><i></i><i></i>
+        </div>
+        <span class="lead"></span>
+      </div>
+
+      <div class="color-selects" dir="ltr">
+        <label>
+          <span>نوار اول — رقم اول</span>
+          <select id="band1" aria-label="نوار اول"></select>
+        </label>
+        <label>
+          <span>نوار دوم — رقم دوم</span>
+          <select id="band2" aria-label="نوار دوم"></select>
+        </label>
+        <label>
+          <span>نوار سوم — ضریب</span>
+          <select id="band3" aria-label="نوار سوم"></select>
+        </label>
+        <label>
+          <span>نوار چهارم — تلرانس</span>
+          <select id="band4" aria-label="نوار چهارم"></select>
+        </label>
+      </div>
+
+      <div class="result-panel" aria-live="polite">
+        <div>
+          <small>مقدار مقاومت</small><br>
+          <strong id="resistanceValue">۱ کیلو‌اهم</strong>
+        </div>
+        <div>
+          <small>تلرانس</small><br>
+          <span id="toleranceValue">±۵٪</span>
+        </div>
+        <div>
+          <small>بازه تقریبی</small><br>
+          <span id="rangeValue">۹۵۰ تا ۱۰۵۰ اهم</span>
+        </div>
+      </div>
+
+      <p class="note">
+        این ابزار برای مقاومت‌های چهارنواره با دو رقم معنادار طراحی شده است.
+        انتخاب رنگ‌ها باید با نوارهای واقعی قطعه تطبیق داده شود.
+      </p>
+    </div>
+
+    <div class="quiz">
+      <b>آزمون کوتاه</b>
+      <p>واحد اصلی اندازه‌گیری مقاومت چیست؟</p>
+      <button type="button" data-answer="wrong">ولت</button>
+      <button type="button" data-answer="correct">اهم</button>
+      <button type="button" data-answer="wrong">آمپر</button>
+      <div class="quiz-feedback" id="quizFeedback" aria-live="polite"></div>
+    </div>
+  `;
+
+  content.querySelectorAll("[data-resistor-type]").forEach((button) => {
+    button.addEventListener("click", () => {
+      showResistorType(Number(button.dataset.resistorType));
+    });
+  });
+
+  content.querySelectorAll("[data-answer]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const feedback = $("quizFeedback");
+      if (!feedback) return;
+      feedback.textContent = button.dataset.answer === "correct"
+        ? "آفرین! پاسخ درست است: اهم (Ω)."
+        : "دوباره تلاش کن؛ واحد مقاومت اهم (Ω) است.";
+      feedback.style.color = button.dataset.answer === "correct" ? "#0e8f83" : "#c45b38";
+    });
+  });
+
+  initColorCalculator();
+}
+
+function showResistorType(index) {
+  const type = resistorTypes[index];
+  const detail = $("resistorDetail");
+  if (!type || !detail) return;
+
+  detail.innerHTML = `
+    <h3>${escapeHTML(type.title)}</h3>
+    <p class="intro">${escapeHTML(type.description)}</p>
+    <div class="detail-grid">
+      <div class="box">
+        <h4>کاربردهای رایج</h4>
+        <ul>${type.applications.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>
+      </div>
+      <div class="box">
+        <h4>نکته فنی</h4>
+        <p>${escapeHTML(type.test)}</p>
+      </div>
+    </div>
+    <div class="safety">
+      پیش از اندازه‌گیری مقاومت در مدار، برق مدار را قطع کن و از شارژ نبودن خازن‌ها مطمئن شو.
+    </div>
+  `;
+}
+
+function renderGeneralLesson(family) {
+  const content = $("lessonContent");
+
+  const lessons = {
+    capacitors: {
+      intro: "خازن قطعه‌ای است که بار و انرژی الکتریکی را در میدان الکتریکی ذخیره می‌کند.",
+      points: [
+        "ظرفیت خازن با فاراد (F) سنجیده می‌شود.",
+        "خازن‌ها در فیلترها، زمان‌سنج‌ها و مدارهای تغذیه کاربرد دارند.",
+        "در خازن‌های قطبی مانند بسیاری از خازن‌های الکترولیتی، رعایت قطب‌ها ضروری است."
+      ]
+    },
+    diodes: {
+      intro: "دیود نیمه‌رسانایی است که در شرایط معمول جریان را عمدتاً در یک جهت عبور می‌دهد.",
+      points: [
+        "پایه آند و کاتد را تشخیص بده.",
+        "دیودها در یک‌سوسازی و حفاظت مدار استفاده می‌شوند.",
+        "LED نوعی دیود است که هنگام عبور جریان مناسب نور تولید می‌کند."
+      ]
+    },
+    transistors: {
+      intro: "ترانزیستور برای تقویت سیگنال یا کنترل جریان به‌عنوان یک کلید الکترونیکی استفاده می‌شود.",
+      points: [
+        "انواع رایج شامل BJT و MOSFET هستند.",
+        "پایه‌ها و آرایش آن‌ها به مدل قطعه وابسته است.",
+        "برای انتخاب قطعه باید جریان، ولتاژ و توان مجاز بررسی شود."
+      ]
+    },
+    ics: {
+      intro: "مدار مجتمع (IC) مجموعه‌ای از اجزای الکترونیکی است که روی یک تراشه ساخته شده‌اند.",
+      points: [
+        "شماره قطعه و دیتاشیت سازنده را بررسی کن.",
+        "تغذیه و پایه زمین باید مطابق دیتاشیت متصل شوند.",
+        "از اتصال اشتباه پایه‌ها و تجاوز از محدوده ولتاژ مجاز خودداری کن."
+      ]
+    },
+    inductors: {
+      intro: "سلف با عبور جریان، انرژی را در میدان مغناطیسی ذخیره می‌کند.",
+      points: [
+        "واحد اندوکتانس هانری (H) است.",
+        "سلف‌ها در مبدل‌های تغذیه و فیلترها کاربرد دارند.",
+        "جریان و مقاومت سیم‌پیچ از مشخصات مهم سلف هستند."
+      ]
+    },
+    leds: {
+      intro: "LED دیودی است که در بایاس مستقیم و جریان مناسب نور تولید می‌کند.",
+      points: [
+        "قطب مثبت و منفی LED را درست تشخیص بده.",
+        "در اغلب مدارها برای LED به مقاومت محدودکننده جریان نیاز است.",
+        "جریان و ولتاژ مجاز را از دیتاشیت بررسی کن."
+      ]
+    },
+    measurement: {
+      intro: "مولتی‌متر برای اندازه‌گیری کمیت‌هایی مانند ولتاژ، جریان و مقاومت به کار می‌رود.",
+      points: [
+        "برای ولتاژ، پراب‌ها به‌صورت موازی به مدار متصل می‌شوند.",
+        "برای اندازه‌گیری جریان، مولتی‌متر باید در مسیر جریان قرار گیرد.",
+        "مقاومت را در مدار خاموش اندازه‌گیری کن."
+      ]
+    }
+  };
+
+  const lesson = lessons[family.id] || {
+    intro: family.description,
+    points: ["مشخصات قطعه را از دیتاشیت معتبر بررسی کن."]
+  };
+
+  content.innerHTML = `
+    <span class="eyebrow">آموزش مقدماتی</span>
+    <h2 class="lesson-title">${escapeHTML(family.title)}</h2>
+    <p class="intro">${escapeHTML(lesson.intro)}</p>
+    <div class="detail-grid">
+      <div class="box">
+        <h4>نکات کلیدی</h4>
+        <ul>${lesson.points.map((point) => `<li>${escapeHTML(point)}</li>`).join("")}</ul>
+      </div>
+      <div class="box">
+        <h4>روش یادگیری</h4>
+        <p>ابتدا ظاهر قطعه و علامت‌های روی بدنه را بررسی کن؛ سپس شماره قطعه و مشخصات فنی را در دیتاشیت سازنده پیدا کن.</p>
+      </div>
+    </div>
+    <div class="safety">
+      پیش از آزمایش هر قطعه، منبع تغذیه را بررسی کن و از رعایت ولتاژ، جریان و قطبیت مجاز مطمئن شو.
+    </div>
+  `;
+}
+
+function initColorCalculator() {
+  const selects = [
+    $("band1"),
+    $("band2"),
+    $("band3"),
+    $("band4")
+  ];
+
+  if (selects.some((select) => !select)) return;
+
+  const digitColors = colorBands.filter((color) => color.value !== null);
+  const multiplierColors = colorBands.filter((color) => color.multiplier !== null);
+  const toleranceColors = colorBands.filter((color) => color.tolerance !== null);
+
+  function fillSelect(select, colors, selectedName) {
+    select.innerHTML = colors.map((color) => `
+      <option value="${color.name}" ${color.name === selectedName ? "selected" : ""}>
+        ${color.name}
+      </option>
+    `).join("");
+  }
+
+  fillSelect(selects[0], digitColors, "قهوه‌ای");
+  fillSelect(selects[1], digitColors, "مشکی");
+  fillSelect(selects[2], multiplierColors, "قرمز");
+  fillSelect(selects[3], toleranceColors, "طلایی");
+
+  selects.forEach((select) => {
+    select.addEventListener("change", updateColorCalculator);
+  });
+
+  updateColorCalculator();
+}
+
+function updateColorCalculator() {
+  const names = ["band1", "band2", "band3", "band4"];
+  const selected = names.map((id) => {
+    const select = $(id);
+    return colorBands.find((color) => color.name === select?.value);
+  });
+
+  if (selected.some((color) => !color)) return;
+
+  const [first, second, multiplier, tolerance] = selected;
+
+  const digits = first.value * 10 + second.value;
+  const resistance = digits * multiplier.multiplier;
+  const tolerancePercent = tolerance.tolerance;
+  const lower = resistance * (1 - tolerancePercent / 100);
+  const upper = resistance * (1 + tolerancePercent / 100);
+
+  const bandElements = $("resistorBody")?.querySelectorAll("i") || [];
+  selected.forEach((color, index) => {
+    if (!bandElements[index]) return;
+    bandElements[index].style.backgroundColor = color.hex;
+    bandElements[index].title = color.name;
+  });
+
+  $("resistanceValue").textContent = formatResistance(resistance);
+  $("toleranceValue").textContent = `±${formatFa(tolerancePercent)}٪`;
+  $("rangeValue").textContent =
+    `${formatResistance(lower)} تا ${formatResistance(upper)}`;
+}
+
+function formatFa(number) {
+  return new Intl.NumberFormat("fa-IR", {
+    maximumFractionDigits: 3
+  }).format(number);
+}
+
+function formatResistance(value) {
+  if (!Number.isFinite(value)) return "نامشخص";
+
+  if (value >= 1_000_000) {
+    return `${formatFa(value / 1_000_000)} مگااهم`;
+  }
+
+  if (value >= 1_000) {
+    return `${formatFa(value / 1_000)} کیلو‌اهم`;
+  }
+
+  return `${formatFa(value)} اهم`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const enter = $("enter");
+  const welcome = $("welcome");
+  const back = $("back");
+  const menu = $("menu");
+  const nav = $("nav");
+  const home = $("home");
+
+  if (enter && welcome) {
+    enter.addEventListener("click", () => {
+      playWelcomeSound();
+      welcome.classList.add("dismissed");
+    });
+  }
+
+  if (back) {
+    back.addEventListener("click", () => {
+      $("lesson")?.classList.add("hidden");
+      $("families")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  if (menu && nav) {
+    menu.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => nav.classList.remove("open"));
+    });
+  }
+
+  if (home) {
+    home.addEventListener("click", (event) => {
+      event.preventDefault();
+      $("lesson")?.classList.add("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  renderFamilies();
+});
