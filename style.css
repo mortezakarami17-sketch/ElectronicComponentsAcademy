@@ -2,3 +2,241 @@
 :root{--navy:#10243a;--teal:#18b6a4;--ink:#182c3c;--muted:#647789;--paper:#f4f8fb;--line:#dce6ed}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:85px}body{margin:0;background:var(--paper);color:var(--ink);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.8}a{color:inherit;text-decoration:none}.topbar{height:76px;position:sticky;top:0;z-index:10;background:#ffffffed;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(5vw,20px)}.brand{display:flex;align-items:center;gap:10px}.brand span{display:flex;flex-direction:column;line-height:1.5}.brand b{font-size:14px}.brand small{font-size:11px;color:var(--muted)}.logo{width:44px;height:44px;object-fit:contain}.topbar nav{display:flex;gap:26px;font-size:13px;color:#536778}.topbar nav a:hover{color:#0e8f83}.menu{display:none;border:0;background:none;font-size:25px}.hero{background:radial-gradient(circle at 75% 35%,#214e6b 0,transparent 34%),linear-gradient(120deg,#0d2034,#163b55);color:white;padding:68px max(7vw,22px);display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;min-height:450px}.hero h2{font-size:clamp(30px,4vw,47px);line-height:1.5;margin:20px 0 12px;font-weight:900}.hero h2 em{display:block;color:#52d8c8;font-style:normal}.hero p{max-width:550px;color:#c7d8e3;font-size:14px;margin-bottom:26px}.pill{display:inline-block;background:#18b6a420;border:1px solid #18b6a455;color:#18b6a4;border-radius:50px;padding:5px 13px;font-size:11px;font-weight:800}.btn{display:inline-flex;justify-content:center;align-items:center;background:var(--teal);color:#082b35;padding:12px 21px;border:0;border-radius:11px;font:700 13px Vazirmatn,Tahoma,sans-serif;cursor:pointer}.btn:hover{background:#47d7c5}.hero-art{height:280px;position:relative;display:grid;place-items:center}.orbit{position:absolute;width:260px;height:260px;border:1px dashed #4b8a9d;border-radius:50%;box-shadow:0 0 0 35px #1b526122,0 0 0 70px #1b526115}.chip{width:112px;height:112px;border:5px solid #7898a5;border-radius:17px;background:linear-gradient(145deg,#243b4b,#0b1824);box-shadow:0 0 0 12px #1b526166,0 20px 40px #07131d99;display:grid;place-items:center;position:relative;font-size:36px;font-weight:900;color:#5ee2d2}.chip small{font-size:15px}.tag{position:absolute;background:#fff;color:var(--navy);padding:7px 12px;border-radius:9px;font-size:11px;font-weight:800}.one{top:25px;right:5%}.two{bottom:25px;left:5%}.three{bottom:20px;right:8%}.section{padding:62px max(7vw,22px)}.section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:25px}.eyebrow{color:#0e8f83;font-weight:800;font-size:11px}.section h2,.about h2{margin:5px 0 0;font-size:clamp(23px,3vw,31px)}.section-head>p{max-width:410px;color:var(--muted);font-size:12px;margin:0}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.family{background:white;border:1px solid var(--line);border-radius:16px;padding:19px;min-height:175px;display:flex;flex-direction:column;align-items:flex-start;text-align:right;cursor:pointer;font-family:inherit;transition:.2s}.family:hover{transform:translateY(-3px);border-color:#8bded5;box-shadow:0 15px 35px #17375412}.family.disabled{opacity:.6;cursor:default}.icon{width:52px;height:52px;display:grid;place-items:center;background:#e6f8f5;color:#0e8f83;border-radius:14px;font-size:25px;margin-bottom:12px}.family h3{font-size:14px;margin:0 0 3px}.family p{font-size:11px;color:var(--muted);margin:0}.status{margin-top:auto;padding-top:11px;color:#0e8f83;font-size:10px;font-weight:800}.disabled .status{color:#8795a0}.lesson{background:white;border:1px solid var(--line);border-radius:20px;margin:0 max(4vw,12px) 28px;padding:clamp(20px,4vw,40px)}.hidden{display:none!important}.lesson-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.text-btn{border:0;background:none;color:#0e8f83;font:600 12px Vazirmatn,sans-serif;cursor:pointer}.lesson-title{font-size:27px;margin:7px 0}.intro{color:var(--muted);font-size:13px;max-width:850px}.types{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:24px 0}.type{border:1px solid var(--line);border-radius:13px;padding:16px;background:#f9fbfd;text-align:right;font-family:inherit;cursor:pointer}.type:hover{border-color:var(--teal);background:#f1fcfa}.type b{display:block;font-size:14px}.type small{color:var(--muted);font-size:11px}.detail{border-top:1px solid var(--line);padding-top:22px;margin-top:20px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.box{background:#f5f9fb;border-radius:13px;padding:17px}.box h4{margin:0 0 7px;font-size:14px}.box p,.box li{font-size:12px;color:#526777}.box ul,.box ol{padding-right:19px}.safety{border-right:4px solid #ffb454;background:#fff8ec;padding:12px 15px;border-radius:8px;font-size:12px;margin-top:17px}.quiz{margin-top:18px;padding:18px;border:1px dashed #9dcfc9;border-radius:13px}.quiz button{margin:5px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:white;cursor:pointer;font-family:inherit;font-size:12px}.quiz-feedback{font-size:12px;font-weight:700;margin-top:8px}.about{background:#eaf4f7;border-radius:20px;padding:32px;max-width:900px}.about p{font-size:13px;color:#536b7b;max-width:780px}.contacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.contact{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;align-items:center;gap:12px;min-width:0}.contact:hover{border-color:var(--teal)}.contact-icon{width:43px;height:43px;display:grid;place-items:center;background:var(--navy);color:#6ee3d5;border-radius:12px;font-size:20px;flex-shrink:0}.contact span:last-child{display:flex;flex-direction:column;min-width:0}.contact b{font-size:13px}.contact small{font-size:11px;color:var(--muted);overflow-wrap:anywhere}footer{border-top:1px solid var(--line);background:white;padding:20px max(5vw,20px);display:flex;align-items:center;justify-content:space-between;gap:14px;color:var(--muted);font-size:10px}.welcome{position:fixed;inset:0;z-index:100;background:radial-gradient(circle at 15% 15%,#1d5667 0,transparent 35%),linear-gradient(135deg,#0c1e31,#153a53);display:grid;place-items:center;padding:20px;transition:opacity .4s,visibility .4s}.welcome.dismissed{opacity:0;visibility:hidden;pointer-events:none}.welcome-card{width:min(530px,100%);background:#fffffffa;border-radius:25px;padding:36px 28px;text-align:center;box-shadow:0 25px 80px #0004}.logo.big{width:88px;height:88px}.welcome-card .eyebrow{margin:8px 0 0}.welcome-card h1{font-size:clamp(25px,5vw,35px);margin:7px 0 14px;color:var(--navy);line-height:1.5}.welcome-card p{font-size:13px;margin:4px 0}.muted,.welcome-card small{color:var(--muted)}.welcome-card .btn{width:100%;margin-top:22px}.welcome-card small{display:block;font-size:10px;margin-top:15px}@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr .7fr}.hero-art{transform:scale(.85)}.contacts{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column;gap:8px}}@media(max-width:600px){.topbar{height:67px}.menu{display:block}.topbar nav{display:none;position:absolute;top:66px;right:0;left:0;background:white;border-bottom:1px solid var(--line);padding:16px 22px;flex-direction:column;gap:13px}.topbar nav.open{display:flex}.hero{display:block;padding:43px 21px 30px}.hero h2{font-size:30px}.hero-art{height:220px;transform:scale(.78);margin-top:12px}.section{padding:40px 17px}.grid{gap:9px}.family{padding:13px;min-height:165px}.family h3{font-size:13px}.types{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}.lesson{margin:0 9px 20px;padding:17px}.about{padding:22px}.contact{padding:14px}footer{flex-wrap:wrap;justify-content:center;text-align:center}}
 /* Interactive resistor colour-code calculator */
 .color-tool{margin-top:25px;padding:clamp(16px,3vw,28px);background:linear-gradient(145deg,#f7fbfd,#edf7f7);border:1px solid #d8e9eb;border-radius:18px}.color-tool h3{font-size:20px;margin:4px 0}.resistor-visual{direction:ltr;display:flex;align-items:center;justify-content:center;height:100px;margin:10px auto 18px;max-width:420px}.resistor-visual .lead{height:4px;background:#9caeb6;flex:1}.resistor-visual .body{height:48px;width:min(240px,65%);background:linear-gradient(180deg,#ead8b3,#cdb184 48%,#e9d5ad);border:1px solid #bca47c;border-radius:22px;display:flex;justify-content:space-evenly;align-items:stretch;overflow:hidden;box-shadow:inset 0 3px 5px #fff8,inset 0 -4px 6px #6e563522}.resistor-visual .body i{display:block;width:13px;height:100%;background:#854b2d}.color-selects{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;direction:ltr}.color-selects label{direction:rtl;text-align:right}.color-selects label{display:flex;flex-direction:column;gap:5px;font-size:11px;font-weight:700}.color-selects select{width:100%;min-width:0;padding:10px 8px;border:1px solid #cddde4;border-radius:9px;background:#fff;font:inherit;font-size:12px;color:var(--ink)}.result-panel{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:16px;padding:15px 18px;background:#10243a;color:white;border-radius:12px}.result-panel small{color:#c4d8e1}.result-panel strong{font-size:22px;color:#65e2d2}.result-panel span{font-size:12px;color:#e3edf1}.note{font-size:11px;color:var(--muted);margin-bottom:0}@media(max-width:600px){.color-selects{grid-template-columns:repeat(2,minmax(0,1fr))}.result-panel{gap:8px}.result-panel strong{font-size:19px}}
+
+/* Family-specific digital lesson effects */
+.lesson.family-effect {
+  --fx-line: #18b6a4;
+  --fx-glow: #52d8c8;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  animation: fxLessonIn .48s ease-out both;
+}
+.lesson.family-effect::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--fx-line), transparent);
+  transform-origin: left center;
+  animation: fxSweep 1s ease-out both;
+}
+.lesson.family-effect::after {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: 22px;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, var(--fx-glow), transparent 70%);
+  opacity: .22;
+  animation: fxPulse 1.8s ease-in-out 2;
+}
+.lesson.family-effect > * {
+  position: relative;
+  z-index: 1;
+}
+.lesson.family-effect-resistors { --fx-line: #f59e0b; --fx-glow: #fbbf24; }
+.lesson.family-effect-resistors::before {
+  background: repeating-linear-gradient(90deg, var(--fx-line) 0 9px, transparent 9px 14px);
+  animation: fxResistor .85s ease-out both;
+}
+.lesson.family-effect-capacitors { --fx-line: #0284c7; --fx-glow: #38bdf8; }
+.lesson.family-effect-capacitors::before {
+  background: linear-gradient(90deg, transparent, #38bdf8, var(--fx-line), transparent);
+  animation: fxCharge 1.15s ease-out both;
+}
+.lesson.family-effect-diodes { --fx-line: #7c3aed; --fx-glow: #a78bfa; }
+.lesson.family-effect-diodes::before {
+  background: linear-gradient(90deg, transparent, var(--fx-line), white, var(--fx-line), transparent);
+  background-size: 220% 100%;
+  animation: fxDiode 1s ease-in-out 2;
+}
+.lesson.family-effect-transistors { --fx-line: #0d9488; --fx-glow: #2dd4bf; }
+.lesson.family-effect-transistors::before {
+  background: repeating-linear-gradient(90deg, var(--fx-line) 0 22px, transparent 22px 28px);
+  animation: fxSwitch .55s steps(2, end) 3;
+}
+.lesson.family-effect-ics { --fx-line: #64748b; --fx-glow: #94a3b8; }
+.lesson.family-effect-ics::before {
+  background: repeating-linear-gradient(90deg, var(--fx-line) 0 2px, transparent 2px 10px);
+  animation: fxScan 1.1s linear 2;
+}
+.lesson.family-effect-inductors { --fx-line: #c026d3; --fx-glow: #e879f9; }
+.lesson.family-effect-inductors::after {
+  background: transparent;
+  border: 2px solid var(--fx-line);
+  animation: fxField 1.6s ease-out 2;
+}
+.lesson.family-effect-leds { --fx-line: #e11d48; --fx-glow: #fb7185; }
+.lesson.family-effect-leds::after {
+  opacity: .45;
+  animation: fxLedGlow .8s ease-in-out 3;
+}
+.lesson.family-effect-measurement { --fx-line: #16a34a; --fx-glow: #4ade80; }
+.lesson.family-effect-measurement::before {
+  background: repeating-linear-gradient(90deg, transparent 0 10px, var(--fx-line) 10px 12px, transparent 12px 22px);
+  animation: fxScan .9s linear 2;
+}
+@keyframes fxLessonIn {
+  from { opacity: .72; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fxSweep {
+  from { transform: scaleX(0); opacity: .4; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+@keyframes fxPulse {
+  0%, 100% { transform: scale(.72); opacity: .12; }
+  50% { transform: scale(1.12); opacity: .3; }
+}
+@keyframes fxResistor {
+  from { transform: scaleX(0); opacity: .3; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+@keyframes fxCharge {
+  0% { transform: scaleX(0); opacity: .25; }
+  70% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: .85; }
+}
+@keyframes fxDiode {
+  from { background-position: 100% 0; }
+  to { background-position: -120% 0; }
+}
+@keyframes fxSwitch {
+  0%, 100% { opacity: .25; }
+  50% { opacity: 1; }
+}
+@keyframes fxScan {
+  from { background-position: 0 0; }
+  to { background-position: 80px 0; }
+}
+@keyframes fxField {
+  0% { transform: scale(.45); opacity: .1; }
+  70% { transform: scale(1.2); opacity: .7; }
+  100% { transform: scale(1.45); opacity: .1; }
+}
+@keyframes fxLedGlow {
+  0%, 100% { opacity: .18; transform: scale(.8); }
+  50% { opacity: .65; transform: scale(1.15); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lesson.family-effect,
+  .lesson.family-effect::before,
+  .lesson.family-effect::after {
+    animation: none !important;
+  }
+}
+
+/* Unified neon border sweep for all component families */
+.lesson.family-effect {
+  --family-glow: #38bdf8;
+  position: relative;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  animation: familyFrameAppear 0.12s ease-out 0.78s forwards;
+}
+
+.lesson.family-effect::before {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  inset: -2px;
+  padding: 3px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 275deg,
+    var(--family-glow) 310deg 345deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: familyLightOrbit 0.85s linear forwards;
+}
+
+.lesson.family-effect::after {
+  content: none;
+}
+
+.lesson.family-effect-resistors {
+  --family-glow: #f59e0b;
+}
+
+.lesson.family-effect-capacitors {
+  --family-glow: #38bdf8;
+}
+
+.lesson.family-effect-diodes {
+  --family-glow: #fb7185;
+}
+
+.lesson.family-effect-transistors {
+  --family-glow: #a78bfa;
+}
+
+.lesson.family-effect-ics {
+  --family-glow: #34d399;
+}
+
+.lesson.family-effect-inductors {
+  --family-glow: #f97316;
+}
+
+.lesson.family-effect-leds {
+  --family-glow: #facc15;
+}
+
+.lesson.family-effect-measurement {
+  --family-glow: #22d3ee;
+}
+
+@keyframes familyLightOrbit {
+  0% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes familyFrameAppear {
+  to {
+    border-color: var(--family-glow);
+    box-shadow:
+      0 0 7px var(--family-glow),
+      inset 0 0 3px var(--family-glow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson.family-effect::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  .lesson.family-effect {
+    animation: none;
+    border-color: var(--family-glow);
+    box-shadow: 0 0 7px var(--family-glow);
+  }
+}

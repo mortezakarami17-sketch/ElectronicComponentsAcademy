@@ -205,6 +205,19 @@ function openFamily(id) {
   }
 
   lesson.classList.remove("hidden");
+  lesson.classList.remove(
+    "family-effect",
+    "family-effect-resistors",
+    "family-effect-capacitors",
+    "family-effect-diodes",
+    "family-effect-transistors",
+    "family-effect-ics",
+    "family-effect-inductors",
+    "family-effect-leds",
+    "family-effect-measurement"
+  );
+  void lesson.offsetWidth;
+  lesson.classList.add("family-effect", "family-effect-" + id);
   lesson.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -565,3 +578,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderFamilies();
 });
+
+// ACADEMY_FAMILY_SOUND_EFFECTS
+(function () {
+  "use strict";
+
+  var audioContext = null;
+  var sounds = {
+    resistors:    { notes: [520, 780], type: "triangle", duration: 0.085 },
+    capacitors:   { notes: [330, 660, 880], type: "sine", duration: 0.12 },
+    diodes:       { notes: [1250, 900], type: "square", duration: 0.055 },
+    transistors:  { notes: [440, 880, 440], type: "sawtooth", duration: 0.065 },
+    ics:          { notes: [950, 1250, 1050], type: "square", duration: 0.055 },
+    inductors:    { notes: [260, 390], type: "sine", duration: 0.15 },
+    leds:         { notes: [700, 1050, 1400], type: "sine", duration: 0.075 },
+    measurement:  { notes: [880, 660], type: "triangle", duration: 0.11 }
+  };
+
+  function playTone(frequency, start, duration, type) {
+    var oscillator = audioContext.createOscillator();
+    var gain = audioContext.createGain();
+
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(frequency, start);
+
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(0.075, start + 0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start(start);
+    oscillator.stop(start + duration + 0.015);
+  }
+
+  document.addEventListener("click", function (event) {
+    var card = event.target.closest("[data-family]");
+    if (!card) return;
+
+    var family = card.getAttribute("data-family");
+    var sound = sounds[family];
+    if (!sound) return;
+
+    try {
+      var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      if (!audioContext) audioContext = new AudioContextClass();
+
+      var play = function () {
+        var start = audioContext.currentTime + 0.015;
+        sound.notes.forEach(function (frequency, index) {
+          playTone(
+            frequency,
+            start + index * sound.duration * 0.85,
+            sound.duration,
+            sound.type
+          );
+        });
+      };
+
+      if (audioContext.state === "suspended") {
+        audioContext.resume().then(play).catch(function () {});
+      } else {
+        play();
+      }
+    } catch (error) {
+      // Audio is optional; the lesson must work even if sound is unavailable.
+    }
+  }, true);
+})();
