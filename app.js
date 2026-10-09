@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 /* =========================================================
    آکادمی قطعات الکترونیک | گروه آموزشی فنی و مهندسی معلم خوب
@@ -549,6 +549,17 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   let resistorExplorerState = { mode: "root", group: null, item: null };
 
+  function renderSensorGuide() {
+    const sensors = [
+      { mark:"LDR", title:"حسگر نور (LDR)", principle:"در بسیاری از LDRها با افزایش نور، مقاومت کاهش می‌یابد؛ میزان تغییر به مدل حسگر و طیف نور بستگی دارد.", uses:"چراغ شب‌روشن، تشخیص روشنایی محیط و تقسیم ولتاژ برای ورودی میکروکنترلر.", test:"در مدار خاموش، مقاومت را با مولتی‌متر اندازه بگیر؛ سپس حسگر را در نور و سایه مقایسه کن. برای مدار فعال از تقسیم ولتاژ کم‌ولتاژ استفاده کن.", source:"Vishay — Photocells", url:"https://www.vishay.com/en/photocells/" },
+      { mark:"NTC", title:"ترمیستور NTC", principle:"در NTC معمولی، با افزایش دما مقاومت کاهش می‌یابد و رابطه دما و مقاومت غیرخطی است.", uses:"اندازه‌گیری دما، پایش حرارتی و محدودکردن جریان هجومی در مدل‌های مناسب.", test:"در مدار خاموش و پس از تخلیه ایمن خازن‌ها مقاومت را بسنج؛ تغییر آن را با گرم‌کردن ملایم مشاهده کن. از شعله مستقیم استفاده نکن.", source:"TDK — NTC thermistors", url:"https://product.tdk.com/en/products/sensor/ntc/" },
+      { mark:"PTC", title:"ترمیستور PTC", principle:"مقاومت PTC با افزایش دما افزایش می‌یابد؛ شدت تغییر و دمای گذار به نوع قطعه بستگی دارد.", uses:"حفاظت اضافه‌جریان در مدل‌های قابل‌بازگشت، پایش دما و محدودسازی حرارتی در کاربردهای مشخص.", test:"دمای نامی و محدوده کاری را از دیتاشیت بررسی کن؛ تغییر مقاومت را فقط با گرم‌کردن ملایم و ابزار مناسب بسنج.", source:"TDK — Temperature sensors", url:"https://product.tdk.com/en/products/sensor/ntc/" },
+      { mark:"FSR", title:"حسگر نیروی مقاومتی", principle:"در بسیاری از FSRها با افزایش نیروی واردشده، مقاومت کاهش می‌یابد؛ پاسخ معمولاً خطی نیست و برای اندازه‌گیری دقیق نیرو مناسب نیست.", uses:"تشخیص فشار یا تماس، رابط‌های تعاملی و پروژه‌های آموزشی.", test:"با تقسیم ولتاژ کم‌ولتاژ و مقاومت ثابت، تغییر خروجی را هنگام فشار ملایم مشاهده کن؛ از فشار بیش از محدوده سازنده خودداری کن.", source:"Interlink Electronics — FSR", url:"https://www.interlinkelectronics.com/fsr-400-series" },
+      { mark:"STRAIN", title:"کرنش‌سنج مقاومتی", principle:"تغییر شکل بسیار کوچک باعث تغییر مقاومت کرنش‌سنج می‌شود؛ معمولاً مدار پل و تقویت‌کننده ابزار دقیق لازم است.", uses:"لودسل، اندازه‌گیری نیرو و وزن و پایش تغییر شکل سازه‌ها.", test:"برای اندازه‌گیری قابل‌اعتماد از مدار پل، تقویت‌کننده مناسب و کالیبراسیون استفاده کن؛ تغییر مقاومت به‌تنهایی ممکن است بسیار کوچک باشد.", source:"NI — Measuring Strain with Strain Gages", url:"https://www.ni.com/en/shop/data-acquisition/sensor-fundamentals/measuring-strain-with-strain-gages.html" },
+      { mark:"POT", title:"پتانسیومتر به‌عنوان حسگر موقعیت", principle:"با حرکت محور یا لغزنده، نسبت تقسیم ولتاژ تغییر می‌کند و می‌تواند موقعیت چرخشی یا خطی را نشان دهد.", uses:"دسته کنترل، تشخیص موقعیت مکانیکی و ورودی قابل تنظیم در مدارهای آموزشی.", test:"در مدار کم‌ولتاژ، دو سر مسیر مقاومتی را به تغذیه و زمین و پایه لغزنده را به ورودی اندازه‌گیری وصل کن؛ حد مجاز ورودی را رعایت کن.", source:"Bourns — Potentiometers", url:"https://www.bourns.com/products/potentiometers-trimmers" }
+    ];
+    return `<section class="sensor-guide" aria-labelledby="sensorGuideTitle"><span class="eyebrow">راهنمای کاربردی حسگرها</span><h3 id="sensorGuideTitle">حسگرهای مقاومتی؛ از اصل کار تا آزمایش</h3><p class="intro">مقاومت این قطعات با نور، دما، نیرو یا موقعیت تغییر می‌کند. نوع دقیق قطعه و محدوده کاری آن را از دیتاشیت بررسی کن.</p><div class="sensor-card-grid">${sensors.map(sensor => `<article class="sensor-card"><div class="sensor-card-top"><span class="sensor-mark" dir="ltr">${sensor.mark}</span><h4>${sensor.title}</h4></div><p><strong>اصل کار:</strong> ${sensor.principle}</p><p><strong>کاربردها:</strong> ${sensor.uses}</p><p><strong>روش آزمایش:</strong> ${sensor.test}</p><a class="sensor-source" href="${sensor.url}" target="_blank" rel="noopener noreferrer">منبع فنی: ${sensor.source} ↗</a></article>`).join("")}</div><p class="sensor-note"><strong>ایمنی:</strong> آزمون مقاومت را روی مدار خاموش انجام بده. از ولتاژ پایین و محدودشده استفاده کن و حسگر را خارج از محدوده دما، نیرو، ولتاژ یا توان سازنده آزمایش نکن.</p></section>`;
+  }
   function renderResistorExplorer() {
     if (resistorExplorerState.mode === "root") {
       return `<section class="resistor-explorer" id="resistorExplorer"><span class="eyebrow">انتخاب دسته</span><h3>از کدام نوع مقاومت شروع کنیم؟</h3><p class="intro">ابتدا یکی از دو دسته زیر را انتخاب کن تا فقط زیرمجموعه‌های همان دسته نمایش داده شوند.</p><div class="resistor-choice-grid">
@@ -563,7 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const item = group.items.find(entry => entry.id === resistorExplorerState.item);
     if (!item) { resistorExplorerState.mode = "group"; return renderResistorExplorer(); }
-    return `<section class="resistor-explorer" id="resistorExplorer"><div class="resistor-explorer-head"><h3>${group.title}</h3><button type="button" class="resistor-back" data-resistor-back="group">← بازگشت به زیرمجموعه‌ها</button></div><article class="resistor-detail"><h3>${item.title}</h3><p>${item.detail}</p></article>${item.calculator ? renderColorCalculator() : ""}</section>`;
+    return `<section class="resistor-explorer" id="resistorExplorer"><div class="resistor-explorer-head"><h3>${group.title}</h3><button type="button" class="resistor-back" data-resistor-back="group">← بازگشت به زیرمجموعه‌ها</button></div><article class="resistor-detail"><h3>${item.title}</h3><p>${item.detail}</p></article>${item.calculator ? renderColorCalculator() : ""}${item.id === "variable-sensors" ? renderSensorGuide() : ""}</section>`;
   }
 
   function renderResistorLesson() {
@@ -646,10 +657,10 @@ document.addEventListener("DOMContentLoaded", () => {
     quizState.answered = false;
     $("[data-quiz-progress]", quiz).textContent = `سؤال ${quizState.index + 1} از ${bank.length} · درست: ${quizState.correct} · غلط: ${quizState.wrong}`;
     $("[data-quiz-question]", quiz).innerHTML = `<h4>${escapeHTML(q[0])}</h4>`;
-    const optionLetters = ["الف", "ب", "پ", "ت"];
+    const optionLetters = ["A", "B", "C", "D"];
     $("[data-quiz-options]", quiz).innerHTML = q[1].map((option, index) => `
-      <button type="button" dir="rtl" data-answer="${index}" aria-label="گزینه ${optionLetters[index]}">
-        <span class="quiz-option-line" dir="rtl"><span class="quiz-option-label" dir="rtl">${optionLetters[index]}-</span> <span class="quiz-option-value" dir="rtl">${formatQuizText(option)}</span></span>
+      <button type="button" dir="ltr" data-answer="${index}" aria-label="گزینه ${optionLetters[index]}">
+        <span class="quiz-option-line" dir="ltr"><span class="quiz-option-label" dir="ltr">${optionLetters[index]}-</span> <span class="quiz-option-value" dir="ltr">${formatQuizText(option)}</span></span>
       </button>
     `).join("");
     const feedback = $("[data-quiz-feedback]", quiz);
@@ -726,7 +737,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (Number(button.dataset.answer) === q[2]) button.classList.add("answer-correct");
         if (button === answerButton && !correct) button.classList.add("answer-wrong");
       });
-      const optionLetters = ["الف", "ب", "پ", "ت"];
+      const optionLetters = ["A", "B", "C", "D"];
       const response = { question:q[0], selectedText:q[1][selected], correctText:q[1][q[2]], selectedLetter:optionLetters[selected], correctLetter:optionLetters[q[2]], correct, explanation:q[3] };
       quizState.responses.push(response);
       const feedback = $("[data-quiz-feedback]", quiz);
@@ -767,3 +778,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 });
+
